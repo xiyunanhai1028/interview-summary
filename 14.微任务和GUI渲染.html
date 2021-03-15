@@ -1,0 +1,32 @@
+<!--
+ * @Author: dfh
+ * @Date: 2021-02-25 10:43:42
+ * @LastEditors: dfh
+ * @LastEditTime: 2021-02-25 10:44:43
+ * @Modified By: dfh
+ * @FilePath: /test/test7/14.微任务和GUI渲染.html
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- 微任务实在GUI渲染前执行的 -->
+    <script>
+        document.body.style.background = 'red';
+        console.log(1)
+        Promise.resolve().then(() => {
+            console.log(2)
+            document.body.style.background = 'yellow';
+        })
+        console.log(3);
+    </script>
+</body>
+
+</html>
