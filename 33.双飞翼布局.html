@@ -1,0 +1,95 @@
+<!--
+ * @Author: dfh
+ * @Date: 2021-03-17 14:31:40
+ * @LastEditors: dfh
+ * @LastEditTime: 2021-03-17 14:37:44
+ * @Modified By: dfh
+ * @FilePath: /test/test7/33.双飞翼布局.html
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            min-width: 600px;
+        }
+
+        #header,
+        #footer {
+            height: 48px;
+            background: gray;
+            border: 1px solid;
+        }
+
+        #content {
+            overflow: hidden;
+        }
+
+        #content .middle,
+        #content .left,
+        #content .right {
+            float: left;
+            padding-bottom: 10000px;
+            margin-bottom: -10000px;
+        }
+
+        #content .left,
+        #content .right {
+            width: 200px;
+            background: pink;
+            text-align: center;
+        }
+
+        #content .left {
+            margin-left: -100%;
+        }
+
+        #content .right {
+            margin-left: -200px;
+        }
+
+        #content .middle {
+            width: 100%;
+            height: 800px;
+            background: blue;
+        }
+
+        #content .middle .inner {
+            margin: 0 200px;
+        }
+
+        .clearfix {
+            *zoom: 1;
+        }
+
+        .clearfix:after {
+            content: '';
+            display: block;
+            clear: both;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="header">header</div>
+    <div id="content" class="clearfix">
+        <div class="middle">
+            <div class="inner">middle</div>
+        </div>
+        <div class="left">left</div>
+        <div class="right">right</div>
+    </div>
+    <div id="footer">footer</div>
+</body>
+
+</html>

@@ -2,12 +2,12 @@
  * @Author: dfh
  * @Date: 2021-02-23 16:41:11
  * @LastEditors: dfh
- * @LastEditTime: 2021-02-23 16:59:28
+ * @LastEditTime: 2021-03-23 10:54:16
  * @Modified By: dfh
- * @FilePath: /test/test7/3.函数颗粒化.js
+ * @FilePath: /test7/3.函数颗粒化.js
  */
 /**
- * 函数颗粒化：函数参数截取，并合并参数
+ * 函数颗粒化：柯里化，英语：Currying(果然是满满的英译中的既视感)，是把接受多个参数的函数变换成接受一个单一参数（最初函数的第一个参数）的函数，并且返回接受余下的参数新函数的技术。
  */
 function currying(fn, args = []) {
     const len = fn.length;

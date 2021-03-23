@@ -1,0 +1,43 @@
+<!--
+ * @Author: dfh
+ * @Date: 2021-03-17 15:11:32
+ * @LastEditors: dfh
+ * @LastEditTime: 2021-03-17 15:15:28
+ * @Modified By: dfh
+ * @FilePath: /test/test7/34.实现一个fixed布局.html
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        html{
+            overflow: hidden;
+            height: 100%;
+        }
+        body{
+            overflow: auto;
+            height: 100%;
+        }
+        #test{
+            position:absolute;
+            left: 50px;
+            top: 50px;
+            width: 200px;
+            height: 200px;
+            background: pink;
+        }
+    </style>
+</head>
+<body>
+    <div id="test"></div>
+    <div style="height: 1000px;"></div>
+</body>
+</html>

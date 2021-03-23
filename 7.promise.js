@@ -2,9 +2,9 @@
  * @Author: dfh
  * @Date: 2021-02-24 08:59:28
  * @LastEditors: dfh
- * @LastEditTime: 2021-02-24 10:31:23
+ * @LastEditTime: 2021-03-23 18:20:11
  * @Modified By: dfh
- * @FilePath: /test/test7/7.promise.js
+ * @FilePath: /test7/7.promise.js
  */
 
 /**
@@ -184,19 +184,21 @@ class Promise {
     }
 
     /**
-     * 1.finally返回的是一个promise
-     * 2.finally回调没有参数
-     * 3.finally不管成功还是失败都会执行
-     * 4.finally成功的值不会作为下一次then的值
-     * 5.finally失败会中断链，失败的值会作为一下then的值
+     * 1.finally不管成功还是失败都会执行
+     * 2.finally里return的值不会作为下一个then的值
+     * 3.finally里如果return的是一个new Promise，会等到promise执行完毕
+     * 4.finally里如果return的是一个new Promise，且promise中resolve的值不作为下一个then的值
+     * 5.finally里如果return的是一个new Promise，且promise中reject的值会作为下一个then的值
+     * 6.finally回调没有参数
+     * 7.finally返回的是一个then
      */
-    finally(callback){
+    finally(callback) {
         //不管成功还是失败callback都会执行
-        this.then(data=>{
+        this.then(data => {
             //callback执行可能是一个promise需要等待他执行完成
-            return Promise.resolve(callback()).then(_=>data);
-        },error=>{
-            return Promise.resolve(callback()).then(_=>{throw error})
+            return Promise.resolve(callback()).then(_ => data);
+        }, error => {//因为finally有等待效果，所以只能用resolve
+            return Promise.resolve(callback()).then(_ => { throw error })
         })
     }
 }
