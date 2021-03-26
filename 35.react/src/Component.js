@@ -2,11 +2,11 @@
  * @Author: dfh
  * @Date: 2021-03-17 16:30:27
  * @LastEditors: dfh
- * @LastEditTime: 2021-03-17 17:24:09
+ * @LastEditTime: 2021-03-24 09:19:54
  * @Modified By: dfh
  * @FilePath: /35.react/src/Component.js
  */
-import { createDOM } from './react-dom'
+import {findDOM,compareTwoVdom } from './react-dom'
 
 //更新队列
 export let updateQueue = {
@@ -17,6 +17,7 @@ export let updateQueue = {
             updater.updateComponent();
         }
         this.isBatchingUpdate = false;
+        this.updaters.length = 0;
     }
 }
 
@@ -31,6 +32,12 @@ class Updater {
     addState(partialState, cb) {
         this.pendingState.push(partialState);
         typeof cb === 'function' && this.cbs.push(cb);
+        this.emitUpdate();
+    }
+
+    //一个组件不管属性变了还是状态变了，都会更新
+    emitUpdate(nextProps) {
+        this.nextProps = nextProps;
         if (updateQueue.isBatchingUpdate) {//处于批量更新模式
             updateQueue.updaters.push(this);
         } else {//直接更新
@@ -39,12 +46,9 @@ class Updater {
     }
 
     updateComponent() {
-        const { pendingState, cbs, classInstance } = this;
-        if (pendingState.length > 0) {
-            classInstance.state = this.getState();
-            classInstance.forceUpdate();
-            cbs.forEach(cb => cb());
-            cbs.length = 0;
+        const { pendingState, cbs, classInstance, nextProps } = this;
+        if (nextProps || pendingState.length > 0) {
+            shouldUpdate(classInstance, nextProps, this.getState(), cbs);
         }
     }
 
@@ -62,6 +66,25 @@ class Updater {
     }
 }
 
+function shouldUpdate(classInstance, nextProps, newState, cbs) {
+    let willUpdate = true;//是否需要更新
+    if (classInstance.shouldComponentUpdate && !classInstance.shouldComponentUpdate(nextProps, newState)) {
+        willUpdate = false;
+    }
+    if (willUpdate && classInstance.componentWillUpdate) {
+        classInstance.componentWillUpdate();
+    }
+    if (nextProps) {
+        classInstance.props = nextProps;
+    }
+    classInstance.state = newState;
+    if (willUpdate) {
+        classInstance.forceUpdate();
+        cbs.forEach(cb => cb());
+        cbs.length = 0;
+    }
+}
+
 class Component {
     static isReactComponent = true;
     constructor(props) {
@@ -74,15 +97,13 @@ class Component {
         this.updater.addState(partialState, cb);
     }
     forceUpdate() {
-        const renderVdom = this.render();
-        updateComponent(this, renderVdom);
+        const newVdom=this.render();
+        const oldVdm=this.oldVdom;
+        const dom=findDOM(oldVdm);
+        compareTwoVdom(dom.parentNode,oldVdm,newVdom);
+        this.oldVdom=newVdom;
+        this.componentDidUpdate&&this.componentDidUpdate();
     }
 }
 
-function updateComponent(clazzInstance, renderVdom) {
-    const newDom = createDOM(renderVdom);
-    const oldDOM = clazzInstance.dom;
-    oldDOM.parentNode.replaceChild(newDom, oldDOM);
-    clazzInstance.dom = newDom;
-}
 export default Component;

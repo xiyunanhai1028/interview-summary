@@ -1,0 +1,50 @@
+<!--
+ * @Author: dfh
+ * @Date: 2021-03-25 11:20:25
+ * @LastEditors: dfh
+ * @LastEditTime: 2021-03-25 11:24:20
+ * @Modified By: dfh
+ * @FilePath: /test7/45.清除浮动.html
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        #wrap {
+            border: 5px solid red;
+        }
+
+        #inner {
+            float: left;
+            width: 400px;
+            height: 400px;
+            background-color: green;
+        }
+        .clearfix{
+            *zoom:1;
+        }
+        .clearfix::after{
+            content: '';
+            display: block;
+            clear: both;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="wrap" class="clearfix">
+        <div id="inner"></div>
+    </div>
+</body>
+
+</html>

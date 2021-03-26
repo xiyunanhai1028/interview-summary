@@ -2,7 +2,7 @@
  * @Author: dfh
  * @Date: 2021-03-17 17:01:30
  * @LastEditors: dfh
- * @LastEditTime: 2021-03-17 17:14:44
+ * @LastEditTime: 2021-03-24 07:21:47
  * @Modified By: dfh
  * @FilePath: /35.react/src/event.js
  */
@@ -43,6 +43,7 @@ function dispatchEvent(event) {
         syntheticEvent[key]=null;
     }
 
+    updateQueue.isBatchingUpdate=false;
     updateQueue.batchUpdate();
 }
 

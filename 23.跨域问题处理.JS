@@ -2,9 +2,9 @@
  * @Author: dfh
  * @Date: 2021-03-13 09:36:54
  * @LastEditors: dfh
- * @LastEditTime: 2021-03-13 10:13:15
+ * @LastEditTime: 2021-03-24 11:04:12
  * @Modified By: dfh
- * @FilePath: /test/test7/23.跨域问题处理.JS
+ * @FilePath: /test7/23.跨域问题处理.JS
  */
 
 /**
@@ -23,17 +23,18 @@ function jsonp({ url, params, cb }) {
         Object.keys(params).forEach(key => {
             arrs.push(`${key}=${params[key]}`);
         })
+        console.log(`${url}?${arrs.join('&')}`)
         script.src = `${url}?${arrs.join('&')}`;
         document.body.appendChild(script);
     });
     return promise;
 }
 jsonp({
-    url: 'http://localhost:300/say',
-    params: { name: '张三' },
-    cb: 'show'
+    url: 'https://www.baidu.com/s',
+    params: { wd: 'hello' },
+    cb: 's'
 }).then(data => {
-    console.log(data);
+    console.log('---data',JSON.stringify(data));
 })
 
 /**
