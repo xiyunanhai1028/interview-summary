@@ -2,7 +2,7 @@
  * @Author: dfh
  * @Date: 2021-03-13 09:36:54
  * @LastEditors: dfh
- * @LastEditTime: 2021-03-24 11:04:12
+ * @LastEditTime: 2021-03-30 08:58:39
  * @Modified By: dfh
  * @FilePath: /test7/23.跨域问题处理.JS
  */
@@ -121,7 +121,7 @@ function c() {
  * 主要解决的是：一级域名和二级域名之间的跨域问题
  * a.zf1.cn:3000
  * b.zf1.cn:3000
- * <iframe src='http://localhost:4000/b.html' frameborder='0' onload='load()' id='iframe'/>
+ * <iframe src='http://a.zf1.cn:3000/b.html' frameborder='0' onload='load()' id='iframe'/>
  */
 function a() {
     document.domain = 'zf1.cn';

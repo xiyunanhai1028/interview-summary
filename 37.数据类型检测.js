@@ -2,13 +2,13 @@
  * @Author: dfh
  * @Date: 2021-03-19 16:03:32
  * @LastEditors: dfh
- * @LastEditTime: 2021-03-19 16:28:59
+ * @LastEditTime: 2021-03-30 14:35:55
  * @Modified By: dfh
  * @FilePath: /test7/37.数据类型检测.js
  */
 /**
  * typeof
- *  - 直接在计算机底层基于数据类型的值（二进制）进行检测
+ *  - 在计算机底层基于数据类型的值（二进制）进行检测
  *  - typeof null==='object',对象存储在计算机中，都是以000开始的二进制存储，null也是，所以检测出来的结果是object
  *  - typeof 普通对象/数组对象/正则对象/日期对象==='object'
  * 
